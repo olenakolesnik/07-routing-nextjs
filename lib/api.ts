@@ -13,16 +13,45 @@ const TOKEN = process.env.NEXT_PUBLIC_NOTEHUB_TOKEN;
     notes: Note[];
     totalPages: number;
 }
+// interface FetchNotesParams {
+//     page?: number;
+//     search?: string;
+//     perPage?: number;
+// }
+
+// export const fetchNotes = async ({
+//     page = 1,
+//     search = "",
+//     perPage = 12,
+// }: FetchNotesParams): Promise<FetchNotesResponse> => {
+//     const res = await axios.get<FetchNotesResponse>(
+//       "/notes",
+//         {
+//             params: {
+//                 page,
+//                 search,
+//                 perPage,
+//           },
+//         headers: {
+//           Authorization: `Bearer ${TOKEN}`,
+//         },
+//       }
+//     );
+//  return res.data;
+// };
+
 interface FetchNotesParams {
     page?: number;
     search?: string;
     perPage?: number;
+    tag?: string;
 }
 
 export const fetchNotes = async ({
     page = 1,
     search = "",
     perPage = 12,
+    tag,
 }: FetchNotesParams): Promise<FetchNotesResponse> => {
     const res = await axios.get<FetchNotesResponse>(
       "/notes",
@@ -31,6 +60,7 @@ export const fetchNotes = async ({
                 page,
                 search,
                 perPage,
+                ...(tag ? { tag } : {}),
           },
         headers: {
           Authorization: `Bearer ${TOKEN}`,
@@ -39,6 +69,11 @@ export const fetchNotes = async ({
     );
  return res.data;
 };
+
+
+
+
+
 
 export async function fetchNoteById(id: Note["id"]) {
     const { data } = await axios.get<Note>(`/notes/${id}`, {

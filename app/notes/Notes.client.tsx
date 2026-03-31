@@ -18,21 +18,22 @@ import {FetchNotesResponse} from "@/lib/api"
 type NotesClientProps = {
   initialPage: number;
   initialSearch: string;
-  dehydratedState: DehydratedState;
+  tag?: string;
+  dehydratedState?: DehydratedState;
 };
 
-export default function NotesClient({ initialPage, initialSearch, dehydratedState }: NotesClientProps) {
+export default function NotesClient({ initialPage, initialSearch, dehydratedState, tag }: NotesClientProps) {
   const [queryClient] = useState(() => new QueryClient());
-  hydrate(queryClient, dehydratedState);
+  // hydrate(queryClient, dehydratedState);
 
   return (
     <QueryClientProvider client={queryClient}>
-      <NotesContent initialPage={initialPage} initialSearch={initialSearch} />
+      <NotesContent initialPage={initialPage} initialSearch={initialSearch} tag={tag} />
     </QueryClientProvider>
   );
 }
 
-function NotesContent({ initialPage, initialSearch }: { initialPage: number; initialSearch: string }) {
+function NotesContent({ initialPage, initialSearch, tag }: { initialPage: number; initialSearch: string, tag?: string }) {
   const [page, setPage] = useState(initialPage);
   const [search, setSearch] = useState(initialSearch);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -45,8 +46,8 @@ function NotesContent({ initialPage, initialSearch }: { initialPage: number; ini
   }, 500);
 
   const { data, isLoading } = useQuery<FetchNotesResponse>({
-    queryKey: ["notes", page, search],
-    queryFn: () => fetchNotes({ page, search }),
+    queryKey: ["notes", page, search, tag],
+    queryFn: () => fetchNotes({ page, search, tag }),
     placeholderData: keepPreviousData,
   });
 
