@@ -4,6 +4,7 @@
 
 import axios from "axios";
 import type { CreateNote, Note } from "../types/note";
+import type { Tag } from "@/types/tag";
 
 axios.defaults.baseURL = "https://notehub-public.goit.study/api";
 
@@ -70,7 +71,14 @@ export const fetchNotes = async ({
  return res.data;
 };
 
-
+// export async function fetchTags() {
+//     const { data } = await axios.get<Tag[]>(`/tags`, {
+//         headers: {
+//             Authorization: `Bearer ${TOKEN}`,
+//         },    
+//     });
+//     return data;
+// }
 
 
 

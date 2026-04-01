@@ -18,7 +18,7 @@ const allowedTags = ["Work", "Personal", "Meeting", "Shopping", "Todo"];
     
     return (
         <div>
-            <h1>Notes by filter</h1>
+            {/* <h1>Notes by filter</h1> */}
             {/* <NoteList notes={data.notes} /> */}
             <NotesClient initialPage={1} initialSearch="" tag={tag} />
     </div>
