@@ -24,7 +24,7 @@ type NotesClientProps = {
 
 export default function NotesClient({ initialPage, initialSearch, dehydratedState, tag }: NotesClientProps) {
   const [queryClient] = useState(() => new QueryClient());
-  // hydrate(queryClient, dehydratedState);
+  
 
   return (
     <QueryClientProvider client={queryClient}>
