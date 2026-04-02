@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 
 
 interface ModalProps {
-  onClose: () => void;
   children: React.ReactNode;
 }
 
@@ -19,8 +18,8 @@ export default function Modal({ children }: ModalProps) {
           className={css.backdrop}
       >
       <div className={css.modal}>
-        <button className={css.backBtn} onClick={handleClick}>Cancel</button>
-             {children}
+        {children}
+        <button onClick={handleClick}>Cancel</button>
           </div>
       </div>
      
