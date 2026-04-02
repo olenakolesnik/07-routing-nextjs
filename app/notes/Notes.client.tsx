@@ -36,7 +36,7 @@ export default function NotesClient({ initialPage, initialSearch, dehydratedStat
 function NotesContent({ initialPage, initialSearch, tag }: { initialPage: number; initialSearch: string, tag?: string }) {
   const [page, setPage] = useState(initialPage);
   const [search, setSearch] = useState(initialSearch);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  
 
   const handlePageChange = (newPage: number) => setPage(newPage);
 
@@ -51,8 +51,6 @@ function NotesContent({ initialPage, initialSearch, tag }: { initialPage: number
     placeholderData: keepPreviousData,
   });
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
 
   return (
     <div className={css.app}>
@@ -65,7 +63,7 @@ function NotesContent({ initialPage, initialSearch, tag }: { initialPage: number
             onPageChange={handlePageChange}
           />
         )}
-        <button className={css.button} onClick={openModal}>Create note +</button>
+        <button className={css.button}>Create note +</button>
       </header>
 
       {isLoading && <strong className={css.loading}>Loading notes...</strong>}
@@ -74,11 +72,6 @@ function NotesContent({ initialPage, initialSearch, tag }: { initialPage: number
         <NoteList notes={data?.notes ?? []} />
       )}
 
-      {isModalOpen && (
-        <Modal onClose={closeModal}>
-          <NoteForm onSuccess={closeModal} />
-        </Modal>
-      )}
     </div>
   );
 }
