@@ -3,15 +3,13 @@
 "use client";
 
 import { useState } from "react";
-import { QueryClient, QueryClientProvider, useQuery, hydrate, DehydratedState, keepPreviousData } from "@tanstack/react-query";
+import { QueryClient, QueryClientProvider, useQuery, DehydratedState, keepPreviousData } from "@tanstack/react-query";
 import { useDebouncedCallback } from "use-debounce";
 import { fetchNotes } from "@/lib/api";
 
 import SearchBox from "@/components/SearchBox/SearchBox";
 import Pagination from "@/components/Pagination/Pagination";
 import NoteList from "@/components/NoteList/NoteList";
-import Modal from "@/components/Modal/Modal";
-import NoteForm from "@/components/NoteForm/NoteForm";
 import css from "./NotesPage.module.css";
 import {FetchNotesResponse} from "@/lib/api"
 
@@ -22,7 +20,7 @@ type NotesClientProps = {
   dehydratedState?: DehydratedState;
 };
 
-export default function NotesClient({ initialPage, initialSearch, dehydratedState, tag }: NotesClientProps) {
+export default function NotesClient({ initialPage, initialSearch, tag }: NotesClientProps) {
   const [queryClient] = useState(() => new QueryClient());
   
 
