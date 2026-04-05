@@ -11,25 +11,28 @@ async function SidebarNotes() {
             perPage: 12,
         }
     );
-    const tags = [...new Set(data.notes.map(note => note.tag))];
+  
+  const TAGS = [
+    { value: "all", label: "All notes" },
+    { value: "Todo", label: "Todo" },
+    { value: "Work", label: "Work" },
+    { value: "Personal", label: "Personal" },
+    { value: "Meeting", label: "Meeting" },
+    { value: "Shopping", label: "Shopping" },
+  ];
     
-    return (
-        <ul className={css.menuList}>
-        {/* список тегів */}
-          <li className={css.menuItem}>
-            <Link href={`/notes/filter/all`} className={css.menuLink}>
-              All notes
-            </Link>
-            </li>
-            {tags.map((tag) => (
-          <li key={tag} className={css.menuItem}>
-            <Link href={`/notes/filter/${tag}`} className={css.menuLink}>
-              {tag}
-            </Link>
-                </li>
-                ))}
-            </ul>
-    )
+  return (
+   
+    <ul className={css.menuList}>
+      {TAGS.map(({ value, label }) => (
+        <li key={value} className={css.menuItem}>
+          <Link href={`/notes/filter/${value}`} className={css.menuLink}>
+            {label}
+          </Link>
+        </li>
+      ))}
+    </ul>
+  );
 }
 
 export default SidebarNotes;

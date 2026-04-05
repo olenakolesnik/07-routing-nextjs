@@ -7,6 +7,7 @@ import { createNote } from "@/lib/api";
 
 interface NoteFormProps {
     onSuccess: () => void;
+    onClose: () => void;
 }
 
 interface NoteFormValues {
@@ -27,7 +28,7 @@ const NoteShema = Yup.object({
     tag: Yup.string().oneOf(["Todo", "Work", "Personal", "Meeting", "Shopping"]).required("Tag is not valid"),
 });
 
-function NoteForm({ onSuccess }: NoteFormProps) {
+function NoteForm({ onSuccess, onClose }: NoteFormProps) {
     const queryClient = useQueryClient();
    const {mutate, isPending} = useMutation({
        mutationFn: createNote,
@@ -80,7 +81,7 @@ function NoteForm({ onSuccess }: NoteFormProps) {
 
             <div className={css.actions}>
                     <button type="button" className={css.cancelButton}
-                    onClick={onSuccess}>
+                    onClick={onClose}>
                     Cancel
                 </button>
                 <button
